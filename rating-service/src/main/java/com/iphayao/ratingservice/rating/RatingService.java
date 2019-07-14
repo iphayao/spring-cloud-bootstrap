@@ -1,11 +1,13 @@
-package com.iphayao.ratingservice;
+package com.iphayao.ratingservice.rating;
 
 import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class RatingService {
     @Autowired
     private RatingRepository ratingRepository;
@@ -14,7 +16,11 @@ public class RatingService {
         return ratingRepository.findAll();
     }
 
-    public Rating findRatingByBookId(Long ratingId) {
+    public List<Rating> findRatingByBookId(Long bookId) {
+        return ratingRepository.findRatingsByBookId(bookId);
+    }
+
+    public Rating findRatingById(Long ratingId) {
         return ratingRepository.findById(ratingId)
                 .orElseThrow(() -> new RatingNotFoundException("Rating not found. ID: " + ratingId));
     }
@@ -35,7 +41,7 @@ public class RatingService {
     }
 
     public Rating updateRating(Map<String, String> updates, Long ratingId) {
-        final Rating rating = findRatingByBookId(ratingId);
+        final Rating rating = findRatingById(ratingId);
         updates.keySet()
                 .forEach(key -> {
                     switch (key) {

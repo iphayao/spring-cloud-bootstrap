@@ -1,4 +1,4 @@
-package com.iphayao.bookservice;
+package com.iphayao.bookservice.book;
 
 import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;

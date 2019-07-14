@@ -1,4 +1,4 @@
-package com.iphayao.bookservice;
+package com.iphayao.bookservice.book;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

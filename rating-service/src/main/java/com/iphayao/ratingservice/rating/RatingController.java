@@ -1,10 +1,11 @@
-package com.iphayao.ratingservice;
+package com.iphayao.ratingservice.rating;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/ratings")
@@ -13,12 +14,9 @@ public class RatingController {
     private RatingService ratingService;
 
     @GetMapping
-    public List<Rating> findRatingByBookId(@RequestParam(required = false, defaultValue = "0") Long bookId) {
-        if(bookId.equals(0L)) {
-            return ratingService.findAllRatings();
-        }
-
-        return ratingService.findRatingByBookId(bookId);
+    public List<Rating> findRatingByBookId(@RequestParam(required = false) Optional<Long> bookId) {
+        return bookId.map(ratingService::findRatingByBookId)
+                .orElseGet(ratingService::findAllRatings);
     }
 
     @PostMapping
