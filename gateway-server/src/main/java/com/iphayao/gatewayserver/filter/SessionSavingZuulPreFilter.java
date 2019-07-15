@@ -23,7 +23,6 @@ public class SessionSavingZuulPreFilter extends ZuulFilter {
         HttpSession httpSession = context.getRequest().getSession();
         Session session = repository.findById(httpSession.getId());
 
-        context.addZuulRequestHeader("Cookie", "SESSION=" + httpSession.getId());
         log.info("ZuulPreFilter session proxy: {}", session.getId());
 
         return null;

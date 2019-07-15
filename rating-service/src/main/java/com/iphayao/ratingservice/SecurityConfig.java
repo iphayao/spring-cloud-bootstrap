@@ -7,12 +7,13 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.session.web.http.SessionRepositoryFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+    public void globalConfigure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication();
     }
 
@@ -26,7 +27,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/ratings/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/ratings").hasRole("ADMIN")
                 .anyRequest().authenticated()
-                .and()
-                .csrf().disable();
+                .and().csrf().disable();
     }
 }

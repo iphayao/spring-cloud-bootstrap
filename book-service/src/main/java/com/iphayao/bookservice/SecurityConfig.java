@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+    public void globalConfigure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication();
     }
 
@@ -26,7 +26,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PATCH, "/books/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/books/*").hasRole("ADMIN")
                 .anyRequest().authenticated()
-                .and()
-                .csrf().disable();
+                .and().csrf().disable();
     }
 }
