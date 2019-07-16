@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    config:
+      name: book-service
+      discovery:
+        service-id: config-server
+        enabled: true
+      username: configUser
+      password: configPassword
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discUser:discPassword@localhost:9002/eureka/
